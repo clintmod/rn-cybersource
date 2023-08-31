@@ -46,16 +46,16 @@ class CaptureContextHelper {
         val US_MERCHANT_SECRET_UAT = "azmNU6cYeaXG5wpb+U/xHJozNai/dxflE2cm9u7TVow="
 
         val US_MERCHANT_ID_PROD = "prod000levi"
-        val US_MERCHANT_KEY_PROD = "bf0badbb-8da0-4c21-901c-414bd3b18923"
-        val US_MERCHANT_SECRET_PROD = "azmNU6cYeaXG5wpb+U/xHJozNai/dxflE2cm9u7TVow="
+        val US_MERCHANT_KEY_PROD = "bf7a4abc-6123-45aa-83e0-861a4e12d44b"
+        val US_MERCHANT_SECRET_PROD = "VcFnyucPAIGPfuWVtRCoZy/nCPbwQzjetr9uiBFIxv8="
 
         val CA_MERCHANT_ID_UAT = "regca100levi"
         val CA_MERCHANT_KEY_UAT = "cc35be4a-a6c7-4d59-8428-4b308f6c21f4"
         val CA_MERCHANT_SECRET_UAT = "xevsGNPlCKa2RMffwrwyTXMNIaby6tbJ0JmVi7p3oUo="
 
         val CA_MERCHANT_ID_PROD = "prodca000levi"
-        val CA_MERCHANT_KEY_PROD = "5c1f9d63-feb5-4e8a-b903-0114bb1f199d"
-        val CA_MERCHANT_SECRET_PROD = "azmNU6cYeaXG5wpb+U/xHJozNai/dxflE2cm9u7TVow="
+        val CA_MERCHANT_KEY_PROD = "b7d9ebc8-7db8-4bef-9484-33a7af8d0ad9"
+        val CA_MERCHANT_SECRET_PROD = "x7GLncY1PLcBdcr22AWntNLylw45bdmaawx9q4pPP7U="
     }
 
     fun createCaptureContext(isProd: Boolean, isUSA: Boolean, callback: CaptureContextEvent) {

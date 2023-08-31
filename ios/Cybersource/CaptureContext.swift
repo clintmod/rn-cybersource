@@ -18,16 +18,16 @@ let US_MERCHANT_KEY_UAT = "7aa9d362-4794-49df-be7b-3fde513809d8"
 let US_MERCHANT_SECRET_UAT = "azmNU6cYeaXG5wpb+U/xHJozNai/dxflE2cm9u7TVow="
 
 let US_MERCHANT_ID_PROD = "prod000levi"
-let US_MERCHANT_KEY_PROD = "bf0badbb-8da0-4c21-901c-414bd3b18923"
-let US_MERCHANT_SECRET_PROD = "azmNU6cYeaXG5wpb+U/xHJozNai/dxflE2cm9u7TVow="
+let US_MERCHANT_KEY_PROD = "bf7a4abc-6123-45aa-83e0-861a4e12d44b"
+let US_MERCHANT_SECRET_PROD = "VcFnyucPAIGPfuWVtRCoZy/nCPbwQzjetr9uiBFIxv8="
 
 let CA_MERCHANT_ID_UAT = "regca100levi"
 let CA_MERCHANT_KEY_UAT = "cc35be4a-a6c7-4d59-8428-4b308f6c21f4"
 let CA_MERCHANT_SECRET_UAT = "xevsGNPlCKa2RMffwrwyTXMNIaby6tbJ0JmVi7p3oUo="
 
 let CA_MERCHANT_ID_PROD = "prodca000levi"
-let CA_MERCHANT_KEY_PROD = "5c1f9d63-feb5-4e8a-b903-0114bb1f199d"
-let CA_MERCHANT_SECRET_PROD = "azmNU6cYeaXG5wpb+U/xHJozNai/dxflE2cm9u7TVow="
+let CA_MERCHANT_KEY_PROD = "b7d9ebc8-7db8-4bef-9484-33a7af8d0ad9"
+let CA_MERCHANT_SECRET_PROD = "x7GLncY1PLcBdcr22AWntNLylw45bdmaawx9q4pPP7U="
 
 
 /*
