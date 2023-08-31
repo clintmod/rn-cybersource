@@ -111,21 +111,21 @@ class ViewController: UIViewController, UITextFieldDelegate {
             Before creating TransientToken make sure you have a valid capture context.
             And below creation of capture context code is for demonstration purpose only.
         */
-        CaptureContext().createCaptureContext() { [weak self] (result) in
-            DispatchQueue.main.async {
-                self?.showActivityIndicator(show: false)
-                switch(result) {
-                case let .success(response):
-                    if let sessionToken = response.keyId {
-                        self?.captureContextResponseString = sessionToken
-                        self?.createTransientToken()
-                    }
-                    break
-                case let .failure(error):
-                    self?.showSessionCreationError(error: error)
-                }
-            }
-        }
+//        CaptureContext().createCaptureContext() { [weak self] (result) in
+//            DispatchQueue.main.async {
+//                self?.showActivityIndicator(show: false)
+//                switch(result) {
+//                case let .success(response):
+//                    if let sessionToken = response.keyId {
+//                        self?.captureContextResponseString = sessionToken
+//                        self?.createTransientToken()
+//                    }
+//                    break
+//                case let .failure(error):
+//                    self?.showSessionCreationError(error: error)
+//                }
+//            }
+//        }
     }
                 
     private func createTransientToken() {

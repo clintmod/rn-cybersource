@@ -98,8 +98,8 @@ class ReactNativeCyber: NSObject {
     
     }
   
-    private func requestCaptureContext() {
-      CaptureContext().createCaptureContext() { [weak self] (result) in
+    private func requestCaptureContext(isProd: Bool, isUSA: Bool) {
+        CaptureContext().createCaptureContext(isProd: isProd, isUSA: isUSA) { [weak self] (result) in
                   DispatchQueue.main.async {
                       switch(result) {
                       case let .success(response):
@@ -116,7 +116,7 @@ class ReactNativeCyber: NSObject {
     }
 
     @objc
-      func makeReservation(_ cardNumber: String, cardVerificationCode: String, cardExpirationMonth: String, cardExpirationYear: String, callback: @escaping RCTResponseSenderBlock) {
+    func makeReservation(_ isProd: Bool, isUSA: Bool, cardNumber: String, cardVerificationCode: String, cardExpirationMonth: String, cardExpirationYear: String, callback: @escaping RCTResponseSenderBlock) {
         // Store the JavaScript callback function
         createTransientTokenCallback = callback
 
@@ -130,6 +130,6 @@ class ReactNativeCyber: NSObject {
         )
 
         // Call createTransientToken with the stored cardInfo
-       self.requestCaptureContext()
+        self.requestCaptureContext(isProd: isProd, isUSA: isUSA)
     }
 }

@@ -12,9 +12,22 @@ import Foundation
     The API credentials have been included in this sample mobile application for demonstration purposes only,
     and to provide a encapsulated demo.  The Credentials must be removed for the final application build.
  */
-let merchantId = "reg100levi"
-let merchantKey = "7aa9d362-4794-49df-be7b-3fde513809d8"
-let merchantSecret = "azmNU6cYeaXG5wpb+U/xHJozNai/dxflE2cm9u7TVow="
+
+let US_MERCHANT_ID_UAT = "reg100levi"
+let US_MERCHANT_KEY_UAT = "7aa9d362-4794-49df-be7b-3fde513809d8"
+let US_MERCHANT_SECRET_UAT = "azmNU6cYeaXG5wpb+U/xHJozNai/dxflE2cm9u7TVow="
+
+let US_MERCHANT_ID_PROD = "prod000levi"
+let US_MERCHANT_KEY_PROD = "bf0badbb-8da0-4c21-901c-414bd3b18923"
+let US_MERCHANT_SECRET_PROD = "azmNU6cYeaXG5wpb+U/xHJozNai/dxflE2cm9u7TVow="
+
+let CA_MERCHANT_ID_UAT = "regca100levi"
+let CA_MERCHANT_KEY_UAT = "cc35be4a-a6c7-4d59-8428-4b308f6c21f4"
+let CA_MERCHANT_SECRET_UAT = "xevsGNPlCKa2RMffwrwyTXMNIaby6tbJ0JmVi7p3oUo="
+
+let CA_MERCHANT_ID_PROD = "prodca000levi"
+let CA_MERCHANT_KEY_PROD = "5c1f9d63-feb5-4e8a-b903-0114bb1f199d"
+let CA_MERCHANT_SECRET_PROD = "azmNU6cYeaXG5wpb+U/xHJozNai/dxflE2cm9u7TVow="
 
 
 /*
@@ -32,7 +45,7 @@ class CaptureContext {
 
     typealias Result = FlexCaptureContextResult
 
-    func createCaptureContext(completion: @escaping (Result) -> Void) {
+    func createCaptureContext(isProd: Bool, isUSA: Bool, completion: @escaping (Result) -> Void) {
         let cardData = FlexCardData()
         cardData.number = FlexFieldData(isRequired: true)
         cardData.securityCode = FlexFieldData(isRequired: true)
@@ -58,7 +71,7 @@ class CaptureContext {
             return
         }
         
-        let merchantConfig = createMerchantConfig()
+        let merchantConfig = createMerchantConfig(isProd: isProd, isUSA: isUSA)
         merchantConfig.requestData = String(decoding: payload, as: UTF8.self)
         
         let apiUrl = URL(string: self.environment.scheme + self.environment.host + self.environment.path)!
@@ -77,7 +90,31 @@ class CaptureContext {
         }
     }
 
-    private func createMerchantConfig() -> ApiConfig {
+    private func createMerchantConfig(isProd: Bool, isUSA: Bool) -> ApiConfig {
+        var merchantId = ""
+        var merchantKey = ""
+        var merchantSecret = ""
+        if (isProd) {
+            if (isUSA) {
+                merchantId = US_MERCHANT_ID_PROD
+                merchantKey = US_MERCHANT_KEY_PROD
+                merchantSecret = US_MERCHANT_SECRET_PROD
+            } else {
+                merchantId = CA_MERCHANT_ID_PROD
+                merchantKey = CA_MERCHANT_KEY_PROD
+                merchantSecret = CA_MERCHANT_SECRET_PROD
+            }
+        } else {
+            if (isUSA) {
+                merchantId = US_MERCHANT_ID_UAT
+                merchantKey = US_MERCHANT_KEY_UAT
+                merchantSecret = US_MERCHANT_SECRET_UAT
+            } else {
+                merchantId = CA_MERCHANT_ID_UAT
+                merchantKey = CA_MERCHANT_KEY_UAT
+                merchantSecret = CA_MERCHANT_SECRET_UAT
+            }
+        }
         return ApiConfig(id: merchantId, key: merchantKey, secret: merchantSecret, env: self.environment)
     }
 

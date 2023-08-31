@@ -76,7 +76,7 @@ class CybersourceModule(reactContext: ReactApplicationContext?) : ReactContextBa
 //    )
 
     @ReactMethod
-    fun makeReservation(cardNumber: String, cardVerificationCode: String,
+    fun makeReservation(isProd: Boolean, isUSA: Boolean, cardNumber: String, cardVerificationCode: String,
                         cardExpirationMonth: String,
                         cardExpirationYear: String,
                         callback: Callback) {
@@ -86,11 +86,11 @@ class CybersourceModule(reactContext: ReactApplicationContext?) : ReactContextBa
         sad["paymentInformation.card.expirationMonth"] = cardExpirationMonth
         sad["paymentInformation.card.expirationYear"] = cardExpirationYear
 
-        requestCaptureContext(sad, callback)
+        requestCaptureContext(isProd, isUSA, sad, callback)
     }
 
-    private fun requestCaptureContext(sad: MutableMap<String, Any>, callback: Callback) {
-        CaptureContextHelper().createCaptureContext(object : CaptureContextEvent {
+    private fun requestCaptureContext(isProd: Boolean, isUSA: Boolean, sad: MutableMap<String, Any>, callback: Callback) {
+        CaptureContextHelper().createCaptureContext(isProd, isUSA, object : CaptureContextEvent {
             override fun onCaptureContextError(e: Exception) {
                 callback.invoke("Error: ${e.message}")
             }

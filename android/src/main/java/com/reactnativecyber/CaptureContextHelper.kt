@@ -41,12 +41,24 @@ class CaptureContextHelper {
         and to provide a encapsulated demo.  The Credentials must be removed for the final application build.
      */
     companion object {
-        val MERCHANT_ID = "reg100levi"
-        val MERCHANT_KEY = "7aa9d362-4794-49df-be7b-3fde513809d8"
-        val MERCHANT_SECRET = "azmNU6cYeaXG5wpb+U/xHJozNai/dxflE2cm9u7TVow="
+        val US_MERCHANT_ID_UAT = "reg100levi"
+        val US_MERCHANT_KEY_UAT = "7aa9d362-4794-49df-be7b-3fde513809d8"
+        val US_MERCHANT_SECRET_UAT = "azmNU6cYeaXG5wpb+U/xHJozNai/dxflE2cm9u7TVow="
+
+        val US_MERCHANT_ID_PROD = "prod000levi"
+        val US_MERCHANT_KEY_PROD = "bf0badbb-8da0-4c21-901c-414bd3b18923"
+        val US_MERCHANT_SECRET_PROD = "azmNU6cYeaXG5wpb+U/xHJozNai/dxflE2cm9u7TVow="
+
+        val CA_MERCHANT_ID_UAT = "regca100levi"
+        val CA_MERCHANT_KEY_UAT = "cc35be4a-a6c7-4d59-8428-4b308f6c21f4"
+        val CA_MERCHANT_SECRET_UAT = "xevsGNPlCKa2RMffwrwyTXMNIaby6tbJ0JmVi7p3oUo="
+
+        val CA_MERCHANT_ID_PROD = "prodca000levi"
+        val CA_MERCHANT_KEY_PROD = "5c1f9d63-feb5-4e8a-b903-0114bb1f199d"
+        val CA_MERCHANT_SECRET_PROD = "azmNU6cYeaXG5wpb+U/xHJozNai/dxflE2cm9u7TVow="
     }
 
-    fun createCaptureContext(callback: CaptureContextEvent) {
+    fun createCaptureContext(isProd: Boolean, isUSA: Boolean, callback: CaptureContextEvent) {
         val service = FlexSessionServiceGenerator().getRetrofirApiService(Environment.SANDBOX)
 
         var cardData = FlexCardData(
@@ -64,9 +76,36 @@ class CaptureContextHelper {
         val gson = Gson()
 
         var merchantConfig = MerchantConfig()
-        merchantConfig.merchantID = MERCHANT_ID
-        merchantConfig.merchantKeyId = MERCHANT_KEY
-        merchantConfig.merchantSecretKey = MERCHANT_SECRET
+
+        var merchantId = ""
+        var merchantKey =  ""
+        var merchantSecret = ""
+
+        if (isProd) {
+            if (isUSA) {
+                merchantId = US_MERCHANT_ID_PROD
+                merchantKey = US_MERCHANT_KEY_PROD
+                merchantSecret = US_MERCHANT_SECRET_PROD
+            } else {
+                merchantId = CA_MERCHANT_ID_PROD
+                merchantKey = CA_MERCHANT_KEY_PROD
+                merchantSecret = CA_MERCHANT_SECRET_PROD
+            }
+        } else {
+            if (isUSA) {
+                merchantId = US_MERCHANT_ID_UAT
+                merchantKey = US_MERCHANT_KEY_UAT
+                merchantSecret = US_MERCHANT_SECRET_UAT
+            } else {
+                merchantId = CA_MERCHANT_ID_UAT
+                merchantKey = CA_MERCHANT_KEY_UAT
+                merchantSecret = CA_MERCHANT_SECRET_UAT
+            }
+        }
+
+        merchantConfig.merchantID = merchantId
+        merchantConfig.merchantKeyId = merchantKey
+        merchantConfig.merchantSecretKey = merchantSecret
 
         merchantConfig.requestHost = Constants.HOSTCAS
 
@@ -80,7 +119,7 @@ class CaptureContextHelper {
             try {
                 keyGenerationResponse = service.createCaptureContext(
                     body,
-                    getHeaderMapForCaptureContext(merchantConfig)
+                    getHeaderMapForCaptureContext(merchantId, merchantConfig)
                 )
                 withContext(Dispatchers.Main) {
                     if (keyGenerationResponse!!.isSuccessful) {
@@ -97,9 +136,9 @@ class CaptureContextHelper {
         }
     }
 
-    private fun getHeaderMapForCaptureContext(merchantConfig: MerchantConfig): Map<String, String> {
+    private fun getHeaderMapForCaptureContext(merchantId: String, merchantConfig: MerchantConfig): Map<String, String> {
         val headerMap = mutableMapOf<String, String>()
-        headerMap[Constants.V_C_MERCHANTID] = MERCHANT_ID
+        headerMap[Constants.V_C_MERCHANTID] = merchantId
         headerMap[Constants.ACCEPT] = "application/jwt"
         headerMap["Content-Type"] = "application/json;charset=utf-8"
         headerMap[Constants.DATE] = PayloadUtility().getNewDate()
