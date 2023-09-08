@@ -60,7 +60,7 @@ class CaptureContextHelper {
 
     fun createCaptureContext(isProd: Boolean, isUSA: Boolean, callback: CaptureContextEvent) {
         val service = if (isProd) {
-            FlexSessionServiceGenerator().getRetrofirApiService(Environment.PROD)
+            FlexSessionServiceGenerator().getRetrofirApiService(Environment.PRODUCTION)
         } else {
             FlexSessionServiceGenerator().getRetrofirApiService(Environment.SANDBOX)
         }
