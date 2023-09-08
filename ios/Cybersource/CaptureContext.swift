@@ -41,7 +41,7 @@ let CA_MERCHANT_SECRET_PROD = "x7GLncY1PLcBdcr22AWntNLylw45bdmaawx9q4pPP7U="
 class CaptureContext {
     
     //Environment to test
-    private let environment = Environment.sandbox
+    private var environment = Environment.sandbox
 
     typealias Result = FlexCaptureContextResult
 
