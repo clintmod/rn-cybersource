@@ -46,6 +46,9 @@ class CaptureContext {
     typealias Result = FlexCaptureContextResult
 
     func createCaptureContext(isProd: Bool, isUSA: Bool, completion: @escaping (Result) -> Void) {
+        if (isProd) {
+            environment = Environment.production
+        }
         let cardData = FlexCardData()
         cardData.number = FlexFieldData(isRequired: true)
         cardData.securityCode = FlexFieldData(isRequired: true)

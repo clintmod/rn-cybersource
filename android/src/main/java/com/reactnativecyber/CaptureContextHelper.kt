@@ -59,7 +59,11 @@ class CaptureContextHelper {
     }
 
     fun createCaptureContext(isProd: Boolean, isUSA: Boolean, callback: CaptureContextEvent) {
-        val service = FlexSessionServiceGenerator().getRetrofirApiService(Environment.SANDBOX)
+        val service = if (isProd) {
+            FlexSessionServiceGenerator().getRetrofirApiService(Environment.PROD)
+        } else {
+            FlexSessionServiceGenerator().getRetrofirApiService(Environment.SANDBOX)
+        }
 
         var cardData = FlexCardData(
             FlexFieldData(true), //card number
