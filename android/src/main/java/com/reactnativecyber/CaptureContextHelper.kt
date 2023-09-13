@@ -111,7 +111,7 @@ class CaptureContextHelper {
         merchantConfig.merchantKeyId = merchantKey
         merchantConfig.merchantSecretKey = merchantSecret
 
-        merchantConfig.requestHost = Constants.HOSTCAS
+        merchantConfig.requestHost = isProd ? Constants.HOSTPROD : Constants.HOSTCAS
 
         val jsonObjectString = gson.toJson(requestObj)
         merchantConfig.requestData = jsonObjectString
@@ -123,7 +123,7 @@ class CaptureContextHelper {
             try {
                 keyGenerationResponse = service.createCaptureContext(
                     body,
-                    getHeaderMapForCaptureContext(merchantId, merchantConfig)
+                    getHeaderMapForCaptureContext(merchantId, merchantConfig, isProd)
                 )
                 withContext(Dispatchers.Main) {
                     if (keyGenerationResponse!!.isSuccessful) {
@@ -140,13 +140,13 @@ class CaptureContextHelper {
         }
     }
 
-    private fun getHeaderMapForCaptureContext(merchantId: String, merchantConfig: MerchantConfig): Map<String, String> {
+    private fun getHeaderMapForCaptureContext(merchantId: String, merchantConfig: MerchantConfig, isProd: Boolean): Map<String, String> {
         val headerMap = mutableMapOf<String, String>()
         headerMap[Constants.V_C_MERCHANTID] = merchantId
         headerMap[Constants.ACCEPT] = "application/jwt"
         headerMap["Content-Type"] = "application/json;charset=utf-8"
         headerMap[Constants.DATE] = PayloadUtility().getNewDate()
-        headerMap[Constants.HOST] = Constants.HOSTCAS
+        headerMap[Constants.HOST] = isProd ? Constants.HOSTPROD : Constants.HOSTCAS
         headerMap["Connection"] = "keep-alive"
         headerMap["User-Agent"] = "Android"
 
