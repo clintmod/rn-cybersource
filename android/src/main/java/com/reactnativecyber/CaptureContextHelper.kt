@@ -111,7 +111,11 @@ class CaptureContextHelper {
         merchantConfig.merchantKeyId = merchantKey
         merchantConfig.merchantSecretKey = merchantSecret
 
-        merchantConfig.requestHost = isProd ? Constants.HOSTPROD : Constants.HOSTCAS
+        merchantConfig.requestHost = if (isProd) {
+            Constants.HOSTPROD
+        } else {
+            Constants.HOSTCAS
+        }
 
         val jsonObjectString = gson.toJson(requestObj)
         merchantConfig.requestData = jsonObjectString
@@ -146,7 +150,11 @@ class CaptureContextHelper {
         headerMap[Constants.ACCEPT] = "application/jwt"
         headerMap["Content-Type"] = "application/json;charset=utf-8"
         headerMap[Constants.DATE] = PayloadUtility().getNewDate()
-        headerMap[Constants.HOST] = isProd ? Constants.HOSTPROD : Constants.HOSTCAS
+        headerMap[Constants.HOST] = if (isProd) {
+            Constants.HOSTPROD
+        } else {
+            Constants.HOSTCAS
+        }
         headerMap["Connection"] = "keep-alive"
         headerMap["User-Agent"] = "Android"
 
